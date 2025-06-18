@@ -94,7 +94,7 @@ const NewsFeedPage: React.FC = () => {
       ) : (
         <Grid container spacing={3} justifyContent="center">
           {articles.map((article) => (
-            <Grid key={article.id} item xs={12} sm={6} md={4}>
+            <Grid key={article.id} component="div" sx={{ width: { xs: '100%', sm: '50%', md: '33.3333%' } }}>
               <ArticleCard
                 id={article.id}
                 title={article.title}
