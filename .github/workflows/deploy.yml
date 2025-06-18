@@ -25,10 +25,14 @@ jobs:
         env:
           PUBLIC_URL: /${{ github.event.repository.name }} # Important for routing on GitHub Pages
 
+      - name: List Build Directory # New step
+        run: ls -la ./build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build # Or your build output directory
+          keep_files: false # Added this line
           # Optional: if you are using a custom domain
           # cname: your.custom.domain.com
