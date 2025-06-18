@@ -1,0 +1,34 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Or your project's node version
+
+      - name: Install dependencies
+        run: npm ci # Or yarn install
+
+      - name: Build application
+        run: npm run build # Or yarn build
+        env:
+          PUBLIC_URL: /${{ github.event.repository.name }} # Important for routing on GitHub Pages
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build # Or your build output directory
+          # Optional: if you are using a custom domain
+          # cname: your.custom.domain.com
