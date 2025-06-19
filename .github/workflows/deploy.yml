@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18' # Or your project's node version
 
@@ -25,17 +25,15 @@ jobs:
         env:
           PUBLIC_URL: /${{ github.event.repository.name }} # Important for routing on GitHub Pages
 
-      - name: Create .nojekyll file
-        run: touch ./build/.nojekyll
-
       - name: List Build Directory
         run: ls -la ./build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build # Or your build output directory
-          keep_files: false 
+          keep_files: false
+          enable_jekyll: false # Explicitly disable Jekyll, relying on the action's .nojekyll handling
           # Optional: if you are using a custom domain
           # cname: your.custom.domain.com
