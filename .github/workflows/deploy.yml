@@ -25,7 +25,10 @@ jobs:
         env:
           PUBLIC_URL: /${{ github.event.repository.name }} # Important for routing on GitHub Pages
 
-      - name: List Build Directory # New step
+      - name: Create .nojekyll file
+        run: touch ./build/.nojekyll
+
+      - name: List Build Directory
         run: ls -la ./build
 
       - name: Deploy to GitHub Pages
@@ -33,6 +36,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build # Or your build output directory
-          keep_files: false # Added this line
+          keep_files: false 
           # Optional: if you are using a custom domain
           # cname: your.custom.domain.com
